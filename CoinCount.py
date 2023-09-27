@@ -35,6 +35,17 @@ bag_weights = {
     "1p" : 356
 }
 
+bag_value = {
+    "£2" : 20,
+    "£1" : 20,
+    "50p" : 10,
+    "20p" : 10,
+    "10p" : 5,
+    "5p" : 5,
+    "2p" : 1,
+    "1p" : 1
+}
+
 volunteers_accuracy = {}
 
 #=============== subroutines =====
@@ -102,7 +113,7 @@ def validation():
                 collect_inputs()
             else:
                 print(Fore.GREEN + "\nBag validated" + Fore.WHITE)
-                value = bag_weight / coin_weights[coin_type]
+                value = bag_value[coin_type]
                 total_value += value
                 valid_bags += 1
                 display()
@@ -114,7 +125,7 @@ def display():
         print("\nName: " + volunteer_name)
         print("Bags checked: " + str(bags_checked))
         print("Correct bags: " + str(valid_bags))
-        print("Total value collected: " + str(total_value))
+        print("Total value collected: £" + str(total_value))
         print("Accuracy: " + str(accuracy) + "%")
         time.sleep(3)
         collect_inputs()
@@ -127,7 +138,7 @@ def volunteer_accuracy():
     storing_info()
 
 def storing_info():
-    f = open("volunteerAccuracy.txt", "a")
+    f = open("volunteerAccuracy.txt", "w")
     f.write(str(sorted_list))
     f.close()
 
