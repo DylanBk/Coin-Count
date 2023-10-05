@@ -50,7 +50,7 @@ volunteers_accuracy = {}
 
 #=============== subroutines =====
 
-def reset():
+def reset(): #resets stats when a new user uses the program
     global bags_checked, valid_bags, display_info
     bags_checked = 0
     valid_bags = 0
@@ -97,7 +97,7 @@ def validation():
         print(Fore.RED + "\nInvalid coin type, please try again" + Fore.WHITE)
         collect_inputs()
     else:
-        if bag_weight not in bag_weights: # FIX: the line below is displayed even when weight is correct
+        if bag_weight not in bag_weights:
             print("\nA bag of " + str(coin_type) + " coins should weigh " + str(bag_weights[coin_type]) + " grams")
             if bag_weight > bag_weights[coin_type]:
                 coins_to_remove = (bag_weight - bag_weights[coin_type]) / coin_weights[coin_type]
@@ -118,7 +118,7 @@ def validation():
                 valid_bags += 1
                 display()
 
-def display():
+def display(): #if user chooses for stats to show, then this displays stats
     global bags_checked, valid_bags, total_value, display_info, accuracy,  volunteer_name
     volunteer_accuracy()
     if display_info == True:
@@ -130,11 +130,11 @@ def display():
         time.sleep(3)
         collect_inputs()
 
-def volunteer_accuracy():
+def volunteer_accuracy(): #calculaion to get accuracy per volunteer
     global accuracy, bags_checked, valid_bags, volunteer_name, sorted_list
     accuracy = valid_bags / bags_checked * 100
-    volunteers_accuracy[volunteer_name] = (accuracy)
-    sorted_list = sorted(volunteers_accuracy.items(), key = lambda x:x[1], reverse=True)
+    volunteers_accuracy[volunteer_name] = (accuracy) #accuracy added to list with their name
+    sorted_list = sorted(volunteers_accuracy.items(), key = lambda x:x[1], reverse=True) #list is sorted by accuracy descending
     storing_info()
 
 def storing_info():
