@@ -97,8 +97,9 @@ def validation():
         print(Fore.RED + "\nInvalid coin type, please try again" + Fore.WHITE)
         collect_inputs()
     else:
-        if bag_weight not in bag_weights:
-            print("\nA bag of " + str(coin_type) + " coins should weigh " + str(bag_weights[coin_type]) + " grams")
+        bag_weights_values = bag_weights.values()
+        if bag_weight not in bag_weights_values:
+            print(Fore.RED + "\nInvalid weight\nA bag of " + str(coin_type) + " coins should weigh " + str(bag_weights[coin_type]) + " grams\n" + Fore.WHITE)
             if bag_weight > bag_weights[coin_type]:
                 coins_to_remove = (bag_weight - bag_weights[coin_type]) / coin_weights[coin_type]
                 print(str(coins_to_remove) + " coins need to be removed")
@@ -111,12 +112,12 @@ def validation():
                 time.sleep(3)
                 display()
                 collect_inputs()
-            else:
-                print(Fore.GREEN + "\nBag validated" + Fore.WHITE)
-                value = bag_value[coin_type]
-                total_value += value
-                valid_bags += 1
-                display()
+        else:
+            print(Fore.GREEN + "\nBag validated" + Fore.WHITE)
+            value = bag_value[coin_type]
+            total_value += value
+            valid_bags += 1
+            display()
 
 def display(): #if user chooses for stats to show, then this displays stats
     global bags_checked, valid_bags, total_value, display_info, accuracy,  volunteer_name
