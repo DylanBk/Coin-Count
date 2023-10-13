@@ -97,33 +97,26 @@ def validation():
         print(Fore.RED + "\nInvalid coin type, please try again" + Fore.WHITE)
         collect_inputs()
     else:
-        for key, value in bag_weights.items(): #checks if coin_type input is in bag_weights dictionary. reference - https://stackoverflow.com/questions/46813733/how-to-compare-users-input-with-value-from-a-dict
-            print(bag_weights.items())
-            if bag_weights[coin_type] == value:
-              print("\n YES")
-            else:
-              print("\nNO")
-            if bag_weights[coin_type] != value:
-                print(Fore.RED + "\nInvalid weight\nA bag of " + str(coin_type) + " coins should weigh " + str(bag_weights[coin_type]) + " grams\n" + Fore.WHITE)
-                break
-                if bag_weight > bag_weights[coin_type]:
-                  coins_to_remove = (bag_weight - bag_weights[coin_type]) / coin_weights[coin_type]
-                  print(str(coins_to_remove) + " coins need to be removed")
-                  time.sleep(3)
-                  display()
-                  collect_inputs()
-                elif bag_weight < bag_weights[coin_type]:
-                  coins_to_add = (bag_weights[coin_type] - bag_weight) / coin_weights[coin_type]
-                  print(str(coins_to_add) + " coins need to be added")
-                  time.sleep(3)
-                  display()
-                  collect_inputs()
-            else:
-              print(Fore.GREEN + "\nBag validated" + Fore.WHITE)
-              value = bag_value[coin_type]
-              total_value += value
-              valid_bags += 1
-              display()
+      if (coin_type, bag_weight) not in bag_weights.items(): # reference - https://note.nkmk.me/en/python-dict-in-values-items/#:~:text=To%20check%20if%20a%20key%2Dvalue%20pair%20exists%20in%20a,not%20exist%20in%20a%20dictionary.
+        print(Fore.RED + "\nInvalid weight\nA bag of " + str(coin_type) + " coins should weigh " + str(bag_weights[coin_type]) + " grams\n" + Fore.WHITE)
+        if bag_weight > bag_weights[coin_type]:
+          coins_to_remove = (bag_weight - bag_weights[coin_type]) / coin_weights[coin_type]
+          print(str(coins_to_remove) + " coins need to be removed")
+          time.sleep(3)
+          display()
+          collect_inputs()
+        elif bag_weight < bag_weights[coin_type]:
+          coins_to_add = (bag_weights[coin_type] - bag_weight) / coin_weights[coin_type]
+          print(str(coins_to_add) + " coins need to be added")
+          time.sleep(3)
+          display()
+          collect_inputs()
+        else:
+          print(Fore.GREEN + "\nBag validated" + Fore.WHITE)
+          value = bag_value[coin_type]
+          total_value += value
+          valid_bags += 1
+          display()
 
 def display(): #if user chooses for stats to show, then this displays stats
     global bags_checked, valid_bags, total_value, display_info, accuracy,  volunteer_name
