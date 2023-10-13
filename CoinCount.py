@@ -66,13 +66,13 @@ def collect_inputs():
             reset()
             menu()
         else:
-            print(Fore.RED + "Invalid input, please try again" + Fore.WHITE)
+            print(f"{Fore.RED}Invalid input, please try again{Fore.WHITE}")
             collect_inputs()
         coin_type = input("\nCoin type: ")
         bag_weight = float(input("Weight of bag: "))
         validation()
     except ValueError:
-        print(Fore.RED + "\nInvalid input, please try again" + Fore.WHITE)
+        print(f"{Fore.RED}\nInvalid input, please try again{Fore.WHITE}")
 
 def bag_recording():
     global display_info
@@ -84,49 +84,49 @@ def bag_recording():
         elif check_bags == 2:
             collect_inputs()
         else:
-            print(Fore.RED + "\nInvalid input, please try again" + Fore.WHITE)
+            print(f"{Fore.RED}\nInvalid input, please try again{Fore.WHITE}")
             bag_recording()
     except ValueError:
-        print(Fore.RED + "\nInvalid input, please try again" + Fore.WHITE)
+        print(f"{Fore.RED}\nInvalid input, please try again{Fore.WHITE}")
         bag_recording()
 
 def validation():
     global bag_weight, coin_type, bags_checked, total_value, valid_bags, record_bags
     bags_checked += 1
     if coin_type not in coin_weights:
-        print(Fore.RED + "\nInvalid coin type, please try again" + Fore.WHITE)
+        print(f"{Fore.RED}\nInvalid coin type, please try again{Fore.WHITE}")
         collect_inputs()
     else:
       if (coin_type, bag_weight) not in bag_weights.items(): # reference - https://note.nkmk.me/en/python-dict-in-values-items/#:~:text=To%20check%20if%20a%20key%2Dvalue%20pair%20exists%20in%20a,not%20exist%20in%20a%20dictionary.
-        print(Fore.RED + "\nInvalid weight\nA bag of " + str(coin_type) + " coins should weigh " + str(bag_weights[coin_type]) + " grams\n" + Fore.WHITE)
+        print(f"{Fore.RED}\nInvalid weight\nA bag of {str(coin_type)} coins should weigh {str(bag_weights[coin_type])} grams\n{Fore.WHITE}")
         if bag_weight > bag_weights[coin_type]:
           coins_to_remove = (bag_weight - bag_weights[coin_type]) / coin_weights[coin_type]
-          print(str(coins_to_remove) + " coins need to be removed")
+          print(f"{str(coins_to_remove)} coins need to be removed")
           time.sleep(3)
           display()
           collect_inputs()
         elif bag_weight < bag_weights[coin_type]:
           coins_to_add = (bag_weights[coin_type] - bag_weight) / coin_weights[coin_type]
-          print(str(coins_to_add) + " coins need to be added")
+          print(f"{str(coins_to_add)} coins need to be added")
           time.sleep(3)
           display()
           collect_inputs()
-        else:
-          print(Fore.GREEN + "\nBag validated" + Fore.WHITE)
-          value = bag_value[coin_type]
-          total_value += value
-          valid_bags += 1
-          display()
+      else:
+        print(f"{Fore.GREEN} \nBag validated {Fore.WHITE}")
+        value = bag_value[coin_type]
+        total_value += value
+        valid_bags += 1
+        display()
 
 def display(): #if user chooses for stats to show, then this displays stats
     global bags_checked, valid_bags, total_value, display_info, accuracy,  volunteer_name
     volunteer_accuracy()
     if display_info == True:
-        print("\nName: " + volunteer_name)
-        print("Bags checked: " + str(bags_checked))
-        print("Correct bags: " + str(valid_bags))
-        print("Total value collected: £" + str(total_value))
-        print("Accuracy: " + str(accuracy) + "%")
+        print(f"\nName: {volunteer_name}")
+        print(f"Bags checked: {str(bags_checked)}")
+        print(f"Correct bags: {str(valid_bags)}")
+        print(f"Total value collected: £{str(total_value)}")
+        print(f"Accuracy: {str(accuracy)}%")
         time.sleep(3)
         collect_inputs()
 
@@ -144,7 +144,7 @@ def storing_info():
 
 def menu():
     global volunteer_name
-    print(Fore.YELLOW + """\n ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄        ▄       ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄         ▄  ▄▄        ▄  ▄▄▄▄▄▄▄▄▄▄▄ 
+    print(f"""{Fore.YELLOW}\n ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄        ▄       ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄         ▄  ▄▄        ▄  ▄▄▄▄▄▄▄▄▄▄▄ 
 ▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░░▌      ▐░▌     ▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░▌       ▐░▌▐░░▌      ▐░▌▐░░░░░░░░░░░▌
 ▐░█▀▀▀▀▀▀▀▀▀ ▐░█▀▀▀▀▀▀▀█░▌ ▀▀▀▀█░█▀▀▀▀ ▐░▌░▌     ▐░▌     ▐░█▀▀▀▀▀▀▀▀▀ ▐░█▀▀▀▀▀▀▀█░▌▐░▌       ▐░▌▐░▌░▌     ▐░▌ ▀▀▀▀█░█▀▀▀▀ 
 ▐░▌          ▐░▌       ▐░▌     ▐░▌     ▐░▌▐░▌    ▐░▌     ▐░▌          ▐░▌       ▐░▌▐░▌       ▐░▌▐░▌▐░▌    ▐░▌     ▐░▌     
@@ -156,7 +156,7 @@ def menu():
 ▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░▌      ▐░░▌     ▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░▌      ▐░░▌     ▐░▌     
  ▀▀▀▀▀▀▀▀▀▀▀  ▀▀▀▀▀▀▀▀▀▀▀  ▀▀▀▀▀▀▀▀▀▀▀  ▀        ▀▀       ▀▀▀▀▀▀▀▀▀▀▀  ▀▀▀▀▀▀▀▀▀▀▀  ▀▀▀▀▀▀▀▀▀▀▀  ▀        ▀▀       ▀      
                                                                                                                           
-""" + Fore.WHITE)
+{Fore.WHITE}""")
     while True:
         try:
             menu_choice = int(input("\n[1] Continue\n[2] View volunteers\n> "))       
@@ -172,10 +172,10 @@ def menu():
                 input("\nPress [ENTER] to continue")
                 menu()
             else:
-                print(Fore.RED + "\nInvalid input, please try again\n" + Fore.WHITE)
+                print(f"{Fore.RED}\nInvalid input, please try again\n{Fore.WHITE}")
                 continue
         except ValueError:
-            print(Fore.RED + "\nInvalid input, please try again" + Fore.WHITE)
+            print(f"{Fore.RED}\nInvalid input, please try again{Fore.WHITE}")
 
 #=============== main program =====
 
