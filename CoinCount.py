@@ -82,9 +82,7 @@ def bag_recording():
   global display_info
   try:
     check_bags = int(
-        input(
-            "\nWould you like to display how many bags are checked?\n[1] Yes\n[2] No\n> "
-        ))
+        input("\nWould you like to display how many bags are checked?\n[1] Yes\n[2] No\n> "))
     if check_bags == 1:
       display_info = True
       collect_inputs()
@@ -107,8 +105,7 @@ def validation():
     if (coin_type, bag_weight) not in bag_weights.items(
     ):  # reference - https://note.nkmk.me/en/python-dict-in-values-items/#:~:text=To%20check%20if%20a%20key%2Dvalue%20pair%20exists%20in%20a,not%20exist%20in%20a%20dictionary.
       print(
-          f"{Fore.RED}\nInvalid weight\nA bag of {str(coin_type)} coins should weigh {str(bag_weights[coin_type])} grams\n{Fore.WHITE}"
-      )
+          f"{Fore.RED}\nInvalid weight\nA bag of {str(coin_type)} coins should weigh {str(bag_weights[coin_type])} grams\n{Fore.WHITE}")
       if bag_weight > bag_weights[coin_type]:
         coins_to_remove = (bag_weight -
                            bag_weights[coin_type]) / coin_weights[coin_type]
@@ -145,16 +142,14 @@ def display():  #if user chooses for stats to show, then this displays stats
 def volunteer_accuracy():  #calculaion to get accuracy per volunteer
   global accuracy, bags_checked, valid_bags, volunteer_name, sorted_list
   accuracy = valid_bags / bags_checked * 100
-  volunteers_accuracy[volunteer_name] = (
-      accuracy)  #accuracy added to list with their name
+  volunteers_accuracy[volunteer_name] = (accuracy)  #accuracy added to list with their name
   sorted_list = sorted(
-      volunteers_accuracy.items(), key=lambda x: x[1], reverse=True
-  )  #list is sorted by accuracy descending. reference - https://stackoverflow.com/questions/613183/how-do-i-sort-a-dictionary-by-value
+      volunteers_accuracy.items(), key=lambda x: x[1], reverse=True)  #list is sorted by accuracy descending. reference - https://stackoverflow.com/questions/613183/how-do-i-sort-a-dictionary-by-value
   storing_info()
 
 def storing_info():
-  f = open("volunteerAccuracy.txt", "w")
-  f.write(str(sorted_list))
+  with open("volunteerAccuracy.txt", "w") as f:
+    f.write(str(sorted_list))
   f.close()
 
 def menu():
@@ -181,9 +176,9 @@ def menu():
         bag_recording()
         collect_inputs()
       elif menu_choice == 2:
-        f = open("volunteerAccuracy.txt", "r")
-        print("")
-        print(f.read())
+        with open("volunteerAccuracy.txt", "r") as f:
+          print("")
+          f.read()
         f.close()
         input("\nPress [ENTER] to continue")
         menu()
