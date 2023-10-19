@@ -179,7 +179,7 @@ def menu():
       elif menu_choice == 2:
         with open("volunteerAccuracy.txt", "r") as f:
           print("")
-          f.read()
+          print(f.read())
         f.close()
         input("\nPress [ENTER] to continue")
         menu()
